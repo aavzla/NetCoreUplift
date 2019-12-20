@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Uplift", "Uplift\Uplift.csproj", "{A50762EB-44ED-424B-BEF1-E3783B532FC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A50762EB-44ED-424B-BEF1-E3783B532FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A50762EB-44ED-424B-BEF1-E3783B532FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A50762EB-44ED-424B-BEF1-E3783B532FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A50762EB-44ED-424B-BEF1-E3783B532FC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EBC6500B-2132-4FBF-B3B2-5F720336E7F1}
+	EndGlobalSection
+EndGlobal
