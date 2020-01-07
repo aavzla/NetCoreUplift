@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Uplift.Data.Migrations
+namespace Uplift.DataAccess.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

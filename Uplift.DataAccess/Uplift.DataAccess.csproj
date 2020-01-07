@@ -12,4 +12,14 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\Initializer\" />
+    <Folder Include="Data\Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Uplift.Models\Uplift.Models.csproj" />
+    <ProjectReference Include="..\Uplift.Utility\Uplift.Utility.csproj" />
+  </ItemGroup>
+
 </Project>
