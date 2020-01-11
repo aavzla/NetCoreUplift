@@ -12,6 +12,8 @@ using Uplift.DataAccess.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Uplift.DataAccess.Data.Repository.Interfaces;
+using Uplift.DataAccess.Data.Repository;
 
 namespace Uplift
 {
@@ -30,10 +32,22 @@ namespace Uplift
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
+            //By Changing the AddDefaultIdentity for AddIdentity allow us to add Users with role and the default option doesn't allow to do that.
+            services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                //The below lines were already included in the AddDefaultIdentity method, but we change that, so why we need to include them.
+                //If we want to use two factor authentification
+                //or the token system for send a token when the user forget a password, we add the line below.
+                .AddDefaultTokenProviders()
+                //Adds a default, self-contained UI for Identity to the application using Razor Pages in an area named Identity.
+                .AddDefaultUI();
+
+            //We add AddNewtonsoftJson for handling the JSON objects when we are calling to the API. 
+            services.AddControllersWithViews().AddNewtonsoftJson().AddRazorRuntimeCompilation();
             services.AddRazorPages();
+
+            //Add Unit of work (UoW) to the container for injection purposes.
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
