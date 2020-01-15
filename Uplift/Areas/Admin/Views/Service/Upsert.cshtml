@@ -1,0 +1,126 @@
+﻿@model Uplift.Models.ViewModels.ServiceVM
+@{
+    var title = (Model.Service.Id == 0 ? "Create Service" : "Edit Service");
+    ViewData["Title"] = title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="Upsert" enctype="multipart/form-data">
+    <div class="row px-2 mx-2 backgroundWhite border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (Model.Service.Id != 0)
+        {
+            <input type="hidden" asp-for="Service.Id" />
+        }
+
+        <div class="col-12">
+            <h2 class="text-primary">@title</h2>
+            <br />
+        </div>
+        <div class="col-12 col-md-10 col-lg-9">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Service.Name"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Service.Name" class="form-control" />
+                    <span asp-validation-for="Service.Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label id="txtPrice" asp-for="Service.Price"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Service.Price" class="form-control" />
+                    <span asp-validation-for="Service.Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Service.Description"></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="Service.Description" class="form-control" style="height:300px;"></textarea>
+                    <span asp-validation-for="Service.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Service.ImageUrl"></label>
+                </div>
+                <div class="col-8">
+                    <input id="uploadBox" type="file" name="files" class="form-control" multiple />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Service.FrequencyId"></label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m => m.Service.FrequencyId, Model.FrequencyList, "- Please select a Frequency -", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Service.CategoryId"></label>
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m => m.Service.CategoryId, Model.CategoryList, "- Please select a Category -", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-8 offset-4">
+                    @if (Model.Service.Id != 0)
+                    {
+                        //Edit button and back to list
+                        <partial name="_EditAndBackToListButton" model="Model.Service.Id" />
+                    }
+                    else
+                    {
+                        //Create button and back to list with Validation for the file. Can not use the regular partial view.
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" onclick="return validateInput()" class="btn btn-primary form-control">Create</button>
+                            </div>
+                            <div class="col">
+                                <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        @if (Model.Service.Id != 0)
+        {
+            <div class="col-12 col-md-2 col-lg-3">
+                <img src="@Model.Service.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b" />
+            </div>
+        }
+    </div>
+</form>
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/m9ft8ewxhxcnu3nk248vj2ld17bqe5ro2n6idaiqf9mnot38/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: 'lists',
+            menubar: 'file edit format'
+        });
+
+        function validateInput() {
+            if (document.getElementById("uploadBox").value == "") {
+                swal("Error", "Please select an image", "error");
+                return false;
+            }
+            return true;
+        }
+
+        $(document).ready(function () {
+            if (document.getElementById('txtPrice').value == "0") {
+                document.getElementById('txtPrice').value = '';
+            }
+        });
+    </script>
+}
