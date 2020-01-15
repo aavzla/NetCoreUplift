@@ -7,10 +7,13 @@ namespace Uplift.DataAccess.Data.Repository
         private readonly ApplicationDbContext _db;
         public ICategoryRepository Categories { get; private set; }
 
+        public IFrequencyRepository Frequencies { get; private set; }
+
         public UnitOfWork(ApplicationDbContext db)
         {
             _db = db;
             Categories = new CategoryRepository(_db);
+            Frequencies = new FrequencyRepository(_db);
         }
 
         public void Dispose()
