@@ -9,6 +9,8 @@ namespace Uplift.DataAccess.Data.Repository
         public ICategoryRepository Categories { get; private set; }
         public IFrequencyRepository Frequencies { get; private set; }
         public IServiceRepository Services { get; private set; }
+        public IOrderInfoRepository OrderInfos { get; private set; }
+        public IOrderDetailsRepository OrderDetails { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
@@ -16,6 +18,8 @@ namespace Uplift.DataAccess.Data.Repository
             Categories = new CategoryRepository(_db);
             Frequencies = new FrequencyRepository(_db);
             Services = new ServiceRepository(_db);
+            OrderInfos = new OrderInfoRepository(_db);
+            OrderDetails = new OrderDetailsRepository(_db);
         }
 
         public void Dispose()
