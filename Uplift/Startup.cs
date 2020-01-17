@@ -46,6 +46,14 @@ namespace Uplift
             services.AddControllersWithViews().AddNewtonsoftJson().AddRazorRuntimeCompilation();
             services.AddRazorPages();
 
+            //Configure the service Session to handle the shopping cart in the project.
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             //Add Unit of work (UoW) to the container for injection purposes.
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
@@ -66,7 +74,8 @@ namespace Uplift
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            //Configure the session
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthentication();
