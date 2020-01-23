@@ -9,7 +9,7 @@ namespace Uplift.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        [Required]
+        [Required, Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
         [Required]
         public string Email { get; set; }
@@ -17,11 +17,11 @@ namespace Uplift.Models
         public string Address { get; set; }
         [Required]
         public string City { get; set; }
-        [Required]
+        [Required, Display(Name = "Zip Code")]
         public string ZipCode { get; set; }
+        public string Comments { get; set; }
         public DateTime OrderDate { get; set; }
         public string Status { get; set; }
-        public string Comments { get; set; }
         /// <summary>
         /// Total Count of services requested
         /// </summary>
