@@ -8,5 +8,10 @@
         public const string OrderStatusSubmitted = "Submitted";
         public const string OrderStatusApproved = "Approved";
         public const string OrderStatusRejected = "Rejected";
+
+
+        //Type of Users
+        public const string Admin = "Admin";
+        public const string Manager = "Manager";
     }
 }
