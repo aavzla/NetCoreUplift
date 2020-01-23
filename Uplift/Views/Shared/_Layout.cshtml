@@ -45,25 +45,18 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li>
-                    @if (HttpContextAccessor.HttpContext.Session.GetObject<List<int>>(StaticDetails.SessionCart) != null)
-                    {
-                        <li class="nav-item">
-                            <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link text-white">
-                                @{
-                                    var count = HttpContextAccessor.HttpContext.Session.GetObject<List<int>>(StaticDetails.SessionCart).Count;
+                    <li class="nav-item">
+                        <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link text-white">
+                            @{
+                                var count = 0;
+                                if (HttpContextAccessor.HttpContext.Session.GetObject<List<int>>(StaticDetails.SessionCart) != null)
+                                {
+                                    count = HttpContextAccessor.HttpContext.Session.GetObject<List<int>>(StaticDetails.SessionCart).Count;
                                 }
-                                <i class="fas fa-shopping-cart"></i>&nbsp; (@count)
-                            </a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a href="#" class="nav-link text-white">
-                                <i class="fas fa-shopping-cart"></i>&nbsp; (0)
-                            </a>
-                        </li>
-                    }
+                            }
+                            <i class="fas fa-shopping-cart"></i>&nbsp; (@count)
+                        </a>
+                    </li>
                 </ul>
                 <partial name="_LoginPartial" />
                 @*<form class="form-inline my-2 my-lg-0">
