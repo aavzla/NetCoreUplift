@@ -9,6 +9,7 @@ namespace Uplift.DataAccess.Data.Repository.Interfaces
         IServiceRepository Services { get; }
         IOrderInfoRepository OrderInfos { get; }
         IOrderDetailsRepository OrderDetails { get; }
+        IUserRepository Users { get; }
         int Save();
     }
 }
