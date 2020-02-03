@@ -132,33 +132,39 @@ namespace Uplift.Areas.Identity.Pages.Account
 
                 string role = Request.Form["rdUserRole"].ToString();
 
-                if (role == StaticDetails.Admin)
+                if (!_userManager.IsInRoleAsync(userFromDB, role).Result)
                 {
-                    await _userManager.AddToRoleAsync(userFromDB, StaticDetails.Admin);
-                }
-                else
-                {
-                    await _userManager.RemoveFromRoleAsync(userFromDB, StaticDetails.Admin);
+                    if (role == StaticDetails.Admin)
+                    {
+                        await _userManager.AddToRoleAsync(userFromDB, StaticDetails.Admin);
+                    }
+                    else
+                    {
+                        await _userManager.RemoveFromRoleAsync(userFromDB, StaticDetails.Admin);
+                    }
+
+                    if (role == StaticDetails.Manager)
+                    {
+                        await _userManager.AddToRoleAsync(userFromDB, StaticDetails.Manager);
+                    }
+                    else
+                    {
+                        await _userManager.RemoveFromRoleAsync(userFromDB, StaticDetails.Manager);
+                    }
                 }
 
-                if (role == StaticDetails.Manager)
+                if (!string.IsNullOrWhiteSpace(Input.Password))
                 {
-                    await _userManager.AddToRoleAsync(userFromDB, StaticDetails.Manager);
-                }
-                else
-                {
-                    await _userManager.RemoveFromRoleAsync(userFromDB, StaticDetails.Manager);
-                }
-
-                var passwordHash = _userManager.PasswordHasher.HashPassword(userFromDB, Input.Password);
-                if (_userManager.PasswordHasher.VerifyHashedPassword(userFromDB, passwordHash, Input.Password) == PasswordVerificationResult.Success)
-                {
-                    userFromDB.PasswordHash = passwordHash;
-                }
-                else
-                {
-                    //This should not happen.
-                    return Page();
+                    string passwordHash = _userManager.PasswordHasher.HashPassword(userFromDB, Input.Password);
+                    if (_userManager.PasswordHasher.VerifyHashedPassword(userFromDB, passwordHash, Input.Password) == PasswordVerificationResult.Success)
+                    {
+                        userFromDB.PasswordHash = passwordHash;
+                    }
+                    else
+                    {
+                        //This should not happen.
+                        return Page();
+                    }
                 }
 
                 var result = await _userManager.UpdateAsync(userFromDB);
