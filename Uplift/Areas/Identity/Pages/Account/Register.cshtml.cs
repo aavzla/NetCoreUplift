@@ -157,7 +157,7 @@ namespace Uplift.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            // The ModelState is not valid, redisplay form
             return Page();
         }
     }

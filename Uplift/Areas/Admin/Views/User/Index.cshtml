@@ -37,7 +37,8 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(m => item.Name)
+                        @*@Html.DisplayFor(m => item.Name)*@
+                        <a asp-area="Identity" asp-page="/Account/Edit" asp-route-id="@item.Id">@Html.DisplayFor(m => item.Name)</a>
                     </td>
                     <td>
                         @Html.DisplayFor(m => item.Email)
