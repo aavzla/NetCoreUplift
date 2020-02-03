@@ -5,7 +5,30 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
+<div class="login-form pt-4">
+    <form id="account" method="post">
+        <h2 class="text-center text-success"><b>@ViewData["Title"]</b></h2>
+        <div class="form-group">
+            <input asp-for="Input.Email" placeholder="Email..." class="form-control" />
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Input.Password" placeholder="Password" class="form-control" />
+            <span asp-validation-for="Input.Password" class="text-danger"></span>
+        </div>
+        <div class="form-group text-center">
+            <input asp-for="Input.RememberMe" /> &nbsp; @Html.DisplayNameFor(x => x.Input.RememberMe)
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-block">Log in</button>
+        </div>
+        <div class="text-center">
+            <a id="forgot-password" asp-page="./ForgotPassword" style="text-decoration:none;">Forgot your password?</a>
+        </div>
+    </form>
+</div>
+
+@*<h1>@ViewData["Title"]</h1>
 <div class="row">
     <div class="col-md-4">
         <section>
@@ -78,7 +101,7 @@
             }
         </section>
     </div>
-</div>
+</div>*@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
