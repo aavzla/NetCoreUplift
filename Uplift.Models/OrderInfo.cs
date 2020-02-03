@@ -22,6 +22,7 @@ namespace Uplift.Models
         public string Comments { get; set; }
         public DateTime OrderDate { get; set; }
         public string Status { get; set; }
+        [Display(Name = "Count")]
         /// <summary>
         /// Total Count of services requested
         /// </summary>

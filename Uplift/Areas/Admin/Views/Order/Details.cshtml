@@ -1,0 +1,147 @@
+﻿@model Uplift.Models.ViewModels.OrderVM
+@using Uplift.Utility
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post">
+    <div class="backgroundWhite container">
+        <div class="card">
+            <div class="card-header bg-dark text-light ml-0 row container">
+                <div class="col-12 d-none d-md-block col-md-6 pb-1">
+                    <i class="fas fa-shopping-cart"></i> &nbsp; Order Summary
+                </div>
+                <div class="col-12 col-md-4 offset-md-2 text-right">
+                    <a asp-action="Index" asp-controller="Order" asp-area="Admin" class="btn btn-outline-info form-control btn-sm">Back to Orders</a>
+                </div>
+            </div>
+            @if (Model.OrderDetails.Any())
+            {
+                <div class="card-body">
+                    <div class="container rounded p-2">
+                        <div class="row">
+                            <div class="col-12 col-lg-6 pb-4">
+                                <div class="row">
+                                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="text-primary">PickUp Details:</span>
+                                    </h4>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label asp-for="OrderInfo.Name"></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="OrderInfo.Name" readonly type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label asp-for="OrderInfo.PhoneNumber"></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="OrderInfo.PhoneNumber" readonly type="text" class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label asp-for="OrderInfo.Address"></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="OrderInfo.Address" type="text" readonly class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label asp-for="OrderInfo.City"></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="OrderInfo.City" type="text" readonly class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label asp-for="OrderInfo.ZipCode"></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="OrderInfo.ZipCode" type="text" readonly class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label asp-for="OrderInfo.Email"></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <input asp-for="OrderInfo.Email" type="text" readonly class="form-control" />
+                                    </div>
+                                </div>
+                                <div class="row my-1">
+                                    <div class="col-3">
+                                        <label asp-for="OrderInfo.Comments"></label>
+                                    </div>
+                                    <div class="col-9">
+                                        <textarea asp-for="OrderInfo.Comments" type="text" readonly class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-5 offset-lg-1">
+                                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                                    <span class="text-primary">Order Summary</span>
+                                </h4>
+                                <ul class="list-group mb-3">
+                                    @foreach (var details in Model.OrderDetails)
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <div>
+                                                <input type="hidden" asp-for="@details.Id" />
+                                                <h6 class="my-0">@details.ServiceName</h6>
+                                                <small class="text-muted">Price : @details.Price</small>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+                                @if (Model.OrderInfo.Status != StaticDetails.OrderStatusSubmitted)
+                                {
+                                    string status = Model.OrderInfo.Status;
+                                    if (status == StaticDetails.OrderStatusApproved)
+                                    {
+                                        status = "btn-outline-success";
+                                    }
+                                    else if (status == StaticDetails.OrderStatusRejected)
+                                    {
+                                        status = "btn-outline-danger";
+                                    }
+                                    else
+                                    {
+                                        status = "btn-outline-warning";
+                                    }
+                                    <div class="col-12 pr-0 pl-0">
+                                        <button class="btn @status disabled form-control" disabled>@Model.OrderInfo.Status</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        @if (Model.OrderInfo.Status == StaticDetails.OrderStatusSubmitted)
+                        {
+                            <div class="col-6 offset-md-4 col-md-4 col-lg-2 offset-lg-8">
+                                <a asp-action="Approve" asp-route-id="@Model.OrderInfo.Id" class="btn btn-success form-control">Approve</a>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-2">
+                                <a asp-action="Reject" asp-route-id="@Model.OrderInfo.Id" class="btn btn-danger form-control">Reject</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="backgroundWhite">No items added to the shopping cart...</div>
+            }
+        </div>
+    </div>
+</form>
