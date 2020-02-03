@@ -1,9 +1,12 @@
 ﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Uplift.DataAccess.Data.Repository.Interfaces;
+using Uplift.Utility;
 
 namespace Uplift.Areas.Admin.Controllers
 {
+    [Authorize(Roles = StaticDetails.Admin)]
     [Area("Admin")]
     public class UserController : Controller
     {

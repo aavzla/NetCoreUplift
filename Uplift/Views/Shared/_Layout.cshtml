@@ -32,21 +32,24 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropDown" role="button" data-toggle="dropdown" class="nav-link dropdown-toggle text-white" href="#" aria-haspopup="true" aria-expanded="false">
-                            Content Management
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropDown">
-                            <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
-                            <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Frequency" asp-action="Index">Frequency</a>
-                            <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Service" asp-action="Index">Service</a>
-                            <a class="dropdown-item text-white" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
-                            <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Order" asp-action="Index">Order</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
+                    @if (User.IsInRole(StaticDetails.Admin) || User.IsInRole(StaticDetails.Manager))
+                    {
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropDown" role="button" data-toggle="dropdown" class="nav-link dropdown-toggle text-white" href="#" aria-haspopup="true" aria-expanded="false">
+                                Content Management
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropDown">
+                                <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                                <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Frequency" asp-action="Index">Frequency</a>
+                                <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Service" asp-action="Index">Service</a>
+                                @if (User.IsInRole(StaticDetails.Admin))
+                                {
+                                    <a class="dropdown-item text-white" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
+                                }
+                                <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Order" asp-action="Index">Order</a>
+                            </div>
+                        </li>
+                    }
                     <li class="nav-item">
                         <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link text-white">
                             @{
