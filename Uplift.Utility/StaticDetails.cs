@@ -13,5 +13,8 @@
         //Type of Users
         public const string Admin = "Admin";
         public const string Manager = "Manager";
+
+        //SP Calls
+        public const string usp_GetAllCategory = "usp_GetAllCategory";
     }
 }
