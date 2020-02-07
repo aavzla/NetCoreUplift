@@ -109,13 +109,6 @@ namespace Uplift.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    //If the roles does not exist, we create them at the first run of the system.
-                    if (!await _roleManager.RoleExistsAsync(StaticDetails.Admin))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(StaticDetails.Admin));
-                        await _roleManager.CreateAsync(new IdentityRole(StaticDetails.Manager));
-                    }
-
                     string role = Request.Form["rdUserRole"].ToString();
 
                     if (role == StaticDetails.Admin)
